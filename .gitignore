@@ -1,3 +1,21 @@
+#from vitaly-chibrikov's config ignore file
+**/.idea
+**.iml
+**/target
+
+# Mac
+.DS_Store
+
+# Maven
+**/log/
+**/target/
+
+#Gradle
+**/build/
+**/gradle/
+**/.gradle/
+
+# According to Github's java standart ignore file
 # Compiled class file
 *.class
 
