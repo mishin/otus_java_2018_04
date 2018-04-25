@@ -18,8 +18,30 @@
     <artifactId>L01.1-maven-an</artifactId>
     <version>2018-04-1.0-SNAPSHOT</version>
 
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <com.google.guava.version>23.0</com.google.guava.version>
+        <package.finalname>otus-java-l01</package.finalname>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${com.google.guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>LATEST</version>
+        </dependency>
+    </dependencies>
+
     <build>
-        <finalName>otus-java-l01</finalName>
+        <finalName>${package.finalname}</finalName>
 
         <plugins>
 
