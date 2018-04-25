@@ -24,7 +24,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <com.google.guava.version>23.0</com.google.guava.version>
-        <package.finalname>otus-java-l01</package.finalname>
+        <package.finalname>L01.1-maven</package.finalname>
     </properties>
 
     <dependencies>
