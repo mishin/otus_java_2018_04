@@ -31,14 +31,20 @@ public class Main {
     public static void main(String... args){
 
 
-        /* Arguments
+        /*
+        Arguments
         1 arg - Debug mode (default is false)
         2 arg - Number of client to be generated
         3 arg - Number of iteration to estimate
+
+        Run example
+        mvn clean package
+        java -jar ./target/L01.1-maven-jar-with-dependencies.jar debug 10 1
+
         */
 
         if (args.length > 0) {
-            debugMode = args[0].equalsIgnoreCase("debug") ? true: false;
+            debugMode = args[0].equalsIgnoreCase("debug");
             try {
                 // Parse the string argument into an integer value.
                 clientCount = Integer.parseInt(args[1]);
@@ -72,7 +78,7 @@ public class Main {
         sb.append("All of names: ")
                 .append(str);
         System.out.print(sb);
-
+        System.out.println();
         System.out.print("Operations: ");
         //estimate the operation called collect only unique client's name
         calcTime(() -> ImmutableSet.copyOf(names).asList() ,"Uniqueness");
