@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>L01.1-maven</name>
-    <description>Code example for L01.1</description>
+    <description>Code for L01.1</description>
 
     <developers>
         <developer>
@@ -36,7 +36,13 @@
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>LATEST</version>
+            <version>0.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.1.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -64,7 +70,7 @@
                 <version>3.0.0</version>
                 <executions>
                     <execution>
-                        <id>my-maven-assembly-plugin</id>
+                        <id>assembly-id</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
@@ -72,10 +78,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
+                    <appendAssemblyId>true</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <formats>
+                        <format>jar</format>
+                    </formats>
                     <archive>
                         <manifest>
                             <mainClass>ru.otus.l011.Main</mainClass>
