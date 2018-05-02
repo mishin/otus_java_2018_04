@@ -20,12 +20,12 @@ public class Main {
     private static int measureCount = 10;
 
     private static void printClient(Faker faker){
-        StringBuffer fakerStringBuf = new StringBuffer();
-        fakerStringBuf.append("Profile: ")
+        StringBuilder fakerSB = new StringBuilder();
+        fakerSB.append("Profile: ")
                 .append(faker.name().fullName())
                 .append(" lives in ")
                 .append(faker.address().fullAddress());
-        System.out.println(fakerStringBuf);
+        System.out.println(fakerSB);
     }
 
     public static void main(String... args){
@@ -67,7 +67,7 @@ public class Main {
             if (debugMode) { printClient(client);}
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String str = String.join(", ", names);
         sb.append("All of names: ")
                 .append(str);
