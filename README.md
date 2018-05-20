@@ -14,7 +14,7 @@ vladson@ya.ru
 
 ### Задания
 
-#### ТЗ №1 Решение
+#### ДЗ №1 Решение - использование maven(плагины, обфустракция)
  * добавлена зависимость - пакет для генерации коллекций объектов с информацией с клиентами как семпл для работы с коллекциями
  * добавлена зависимость - пакет guava для обработки имен клиентов
  * произведен расчет операций получения уникального списка сгенерированных имен
@@ -30,19 +30,37 @@ vladson@ya.ru
  ---
 
  To start the application:
+ ```sh
  * cd L01.1-maven
  * mvn package
  * java -cp ./target/L01.1-maven.jar ru.otus.l011.Main
+  ```
  или java -jar ./target/L01.1-maven.jar 
  
  
  To unzip the jar:
- * 7z x -oJAR ./target/L01.1-maven.jar
- * unzip -d JAR ./target/L01.1-maven.jar
- 
+```sh
+ 7z x -oJAR ./target/L01.1-maven.jar
+ unzip -d JAR ./target/L01.1-maven.jar
+```
 
  To build:
- * mvn package
- * mvn clean compile
- * mvn assembly:single
- * mvn clean compile assembly:single
+ ```sh
+ mvn package
+ mvn clean compile
+ mvn assembly:single
+ mvn clean compile assembly:single
+ ```
+ 
+ #### №2 Решение ДЗ 02.1 Измерение памяти
+  * используется Java's reflection для обхода полей (в том числе и приватных)
+  * в вычисления добавлены знания про разрядность JVM и размер ссылки
+ 
+  ---
+   To run the tests
+```sh
+   cd L02.1-tutors 
+   mvn compile test   
+```
+ 
+ ---
