@@ -136,9 +136,6 @@ public class MemEstimator {
                 int mods = field.getModifiers();
                 if (Modifier.isStatic(mods)){
                     sb.append("..skip the static ")
-                            .append("<")
-                            .append(field.getName())
-                            .append(">")
                             .append(linesep);
                 }
                 else { //is not static modifier
