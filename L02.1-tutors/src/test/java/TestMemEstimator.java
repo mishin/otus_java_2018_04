@@ -52,7 +52,6 @@ public class TestMemEstimator extends MemEstimator{
     }
 
 
-
     /*
     Определить размер пустой строки
     */
