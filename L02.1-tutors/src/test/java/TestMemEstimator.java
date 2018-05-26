@@ -12,7 +12,8 @@ public class TestMemEstimator extends MemEstimator{
     @Test
     public void test_int() {
         try {
-            System.out.println( Estimator((Integer)10) );
+            Long res = Estimator(10);
+            assertEquals(20L, res, 0.01);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -21,7 +22,8 @@ public class TestMemEstimator extends MemEstimator{
     @Test
     public void test_short() {
         try {
-            System.out.println( Estimator((short)10) );
+            Long res = Estimator((short)10);
+            assertEquals(18L, res, 0.01);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -30,7 +32,9 @@ public class TestMemEstimator extends MemEstimator{
     @Test
     public void test_array_of_int() {
         try {
-            System.out.println( Estimator(new int[]{1,2,3}) );
+            int[] arr =  new int[]{1,2,4,4,2};
+            Long res = Estimator(arr);
+            assertEquals(20L+4L*arr.length, res, 0.01);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -39,29 +43,18 @@ public class TestMemEstimator extends MemEstimator{
     @Test
     public void test_array_of_long() {
         try {
-            System.out.println( Estimator(new long[]{1,2,3}) );
+            long[] arr =  new long[]{1,2,4,4,2};
+            Long res = Estimator(arr);
+            assertEquals(40L+4L*arr.length, res, 0.01);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    //Написать стенд для определения размера объекта.
-    public void test_String() {
-        try {
-            Long result = Estimator("t");
-            assertEquals(base_strlen_j8+2L, result, 0.01);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
     }
 
 
 
     /*
     Определить размер пустой строки
-
     */
 
     @Test
