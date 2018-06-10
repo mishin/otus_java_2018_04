@@ -3,7 +3,7 @@ import java.util.Map;
 
 public interface IATM {
 
-    List withdrawCash(Integer requestedCash, Currency rub)
+    void withdrawCash(Integer requestedCash, Currency rub)
             throws InvalidAmountATMException, InvalidBalanceATMException;
 
     Integer getBalance();

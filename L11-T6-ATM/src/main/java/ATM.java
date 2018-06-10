@@ -23,13 +23,14 @@ public class ATM implements IATM{
     private DeckATM[] decks = new DeckATM[MAX_DECKS];
 
     public ATM() {
-        InitATM();
+        initDecks();
         recalcBalance();
     }
 
     // принимать банкноты разных номиналов (на каждый номинал должна быть своя ячейка)
-    private void InitATM(){
-        //ATM deck configuration
+    // each deck for each nominal and currency
+    private void initDecks(){
+        //setup ATM's deck configuration
         decks[0] = new DeckATM(0, MAX_CAPACITY_PER_DECK, DeckNominal.ONE_THOUSAND ,Currency.RUB);
         decks[1] = new DeckATM(1, MAX_CAPACITY_PER_DECK, DeckNominal.HUNDRED,Currency.RUB);
         decks[2] = new DeckATM(2, MAX_CAPACITY_PER_DECK, DeckNominal.FIFTY,Currency.RUB);
@@ -37,16 +38,13 @@ public class ATM implements IATM{
 
 
     @Override
-    public void loadCash(Map<Integer, Integer> loadDeck, Currency currency) {
+    public void loadCash(Map<Integer, Integer> deck, Currency currency) {
 
-
-        for (Integer deck_index: loadDeck.keySet() ){
+        for (Integer deck_index: deck.keySet() ){
             System.out.printf("Deck %s loading..", deck_index);
 
-            //if (decks[deck_index].getCurrency() == currency)
-            //{
             try {
-                    decks[deck_index].loadCash(loadDeck.get(deck_index), currency);
+                    decks[deck_index].loadDeck(deck.get(deck_index), currency);
                     System.out.println(".Ok");
             } catch (InvalidCurrencyATMException | OverflowDeckCapacityException e) {
                     e.printStackTrace();
@@ -57,6 +55,24 @@ public class ATM implements IATM{
 
         printATM();
     }
+
+    public void unloadCash(Map<Integer, Integer> deck, Currency currency) {
+
+        for (Integer deck_index: deck.keySet() ){
+            System.out.printf("Deck %s unloading..", deck_index);
+
+            try {
+                decks[deck_index].unloadDeck(deck.get(deck_index), currency);
+                System.out.println(".Ok");
+            } catch (InvalidCurrencyATMException | OverflowDeckCapacityException e) {
+                e.printStackTrace();
+                System.out.println(".Failed");
+            }
+
+        }
+
+    }
+
 
     public void printATM() {
         System.out.println("ATM:");
@@ -76,48 +92,49 @@ public class ATM implements IATM{
     }
 
     private void recalcBalance(){
-
         Integer balance = 0;
         for (DeckATM d : decks) {
             balance += d.getBalance();
         }
-
         this.balance  = balance;
     }
 
 
     //return requested cash
     @Override
-    public List withdrawCash(Integer withdrawAmount, Currency currency)
+    public void withdrawCash(Integer withdrawAmount, Currency currency)
         throws InvalidAmountATMException, InvalidBalanceATMException {
 
         if (withdrawAmount % DeckNominal.FIFTY.getNominal() != 0) {
-            //System.out.printf("Sorry, the requested amount must be a multiple of %s", DeckNominal.FIFTY.getNominal() );
             throw new InvalidAmountATMException("Sorry, the requested amount must be a multiple of " + 50);
         }
         else if (withdrawAmount > this.balance) {
-            //System.out.println("ATM does not have enough money.");
-            throw new InvalidBalanceATMException("ATM does not have enough money.");
+            throw new InvalidBalanceATMException("Sorry, ATM does not have enough money. Please try again latter.");
         } else {
 
-            return getMinimalNominal(withdrawAmount);
-            //TODO: add get money from deck and change balance
+            //get collection of different nominals and count
+            Map<Integer,Integer> requestedCashMap = getMinimalNominal(withdrawAmount);
+
+            unloadCash(requestedCashMap, Currency.RUB);
+
+            recalcBalance();
+
+            printATM();
+
         }
     }
 
 
-    public List<Map<Integer,Integer>>  getMinimalNominal(Integer amount){
-        return getMinimalNominal(amount,new ArrayList<>(), new HashSet<>());
+    public Map<Integer,Integer>  getMinimalNominal(Integer amount){
+        return getMinimalNominal(amount,new HashMap<>(), new HashSet<>());
     }
 
-    protected List<Map<Integer,Integer>>  getMinimalNominal(Integer amount, List<Map<Integer,Integer>> resList ,Set<Integer> visited){
+    private Map<Integer,Integer>  getMinimalNominal(Integer amount,
+            Map<Integer,Integer> res, Set<Integer> visited){
 
         int amountRest = 0;
         int div =0;
-        Map<Integer,Integer> res = new HashMap<>();
-//res every drill down is nulable
 
-        //amountRest = amount;
         if (amount != 0) {
             for (DeckATM d : decks) {
 
@@ -129,15 +146,13 @@ public class ATM implements IATM{
                 if(amount >= d.getNominal()){
                     div = amount / d.getNominal();
                         amountRest = amount - div * d.getNominal();
-                        res.put(div, d.getNominal());
-                        resList.add(res);
+                        res.put(d.getDeck_number(),div);
                         if (amountRest != 0)
-                            getMinimalNominal(amountRest,resList, visited);
-
+                            getMinimalNominal(amountRest,res, visited);
                 }
             }
         }
-        return resList;
+        return res;
     }
 
 

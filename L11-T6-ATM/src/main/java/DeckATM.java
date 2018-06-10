@@ -40,7 +40,7 @@ public class DeckATM {
         return count;
     }
 
-    public void loadCash(int loadCount, Currency currency)
+    public void loadDeck(int loadCount, Currency currency)
             throws InvalidCurrencyATMException, OverflowDeckCapacityException {
 
         if (this.currency != currency){
@@ -53,6 +53,18 @@ public class DeckATM {
         } else count += loadCount;
     }
 
+    public void unloadDeck(int unloadCount, Currency currency)
+            throws InvalidCurrencyATMException, OverflowDeckCapacityException {
+
+        if (this.currency != currency){
+            throw new InvalidCurrencyATMException("Invalid loading the currency. Please try to put another currency");
+        }
+
+        if (capacity < unloadCount || unloadCount > count) {
+            throw new OverflowDeckCapacityException("Sorry, It's not enough money. Please try to charge a smaller amount");
+
+        } else count -= unloadCount;
+    }
 
     public Integer getDeck_number() {
         return deck_number;
