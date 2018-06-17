@@ -8,6 +8,6 @@ public interface IATM {
 
     Integer getBalance();
 
-    void loadCash(Map<Integer, Integer> loadDeck, Currency currency)
+    void loadCash(Map<DeckNominal, Integer> loadDeck, Currency currency)
             throws InvalidCurrencyATMException, OverflowDeckCapacityException;
 }

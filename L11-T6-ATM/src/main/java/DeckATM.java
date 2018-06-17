@@ -11,7 +11,6 @@ public class DeckATM {
     private Currency currency;
 
 
-
     public DeckATM(Integer deck_number, Integer capacity, DeckNominal nominal, Currency currency){
         this.deck_number = deck_number;
         this.capacity = capacity;
