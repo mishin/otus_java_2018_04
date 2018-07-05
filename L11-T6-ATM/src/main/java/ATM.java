@@ -17,6 +17,7 @@ import java.util.*;
 
 public class ATM implements IATM{
 
+    private final UUID guid = java.util.UUID.randomUUID();
     private final Integer MAX_DECKS = 3;
     private final Integer MAX_CAPACITY_PER_DECK = 5;
     private Integer balance = 0;
@@ -242,5 +243,7 @@ public class ATM implements IATM{
     }
 
 
-
+    public UUID getGuid() {
+        return guid;
+    }
 }
